@@ -1,4 +1,4 @@
-﻿package edu.autocar.util;
+﻿package edu.autocar;
 
 import java.util.ArrayList;
 import java.util.HashMap;

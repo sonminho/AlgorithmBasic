@@ -1,4 +1,4 @@
-﻿package edu.autocar.util;
+﻿package edu.autocar;
 
 import edu.autocar.contact.command.ContactAddCommand;
 import edu.autocar.contact.command.ContactListCommand;

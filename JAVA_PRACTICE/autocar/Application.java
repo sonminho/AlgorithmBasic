@@ -1,4 +1,4 @@
-﻿package edu.autocar.util;
+﻿package edu.autocar;
 
 import util.Input;
 
