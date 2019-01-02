@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="edu.autocar.mybatisex.dao.GoodsInfoDao">
+	<select id="selectList" resultType="GoodsInfo">
+		<![CDATA[
+			select * from goodsinfo
+		]]>
+	</select>
+	
+	<select id="getPage" resultType="GoodsInfo" parameterType="Map">
+		<![CDATA[
+			select code, name, price, maker 
+			from (
+				select row_number() over (order by code) as seq,
+				code, name, price, maker from goodsinfo
+			) where seq between #{start} and #{end}
+		]]>
+	</select>
+		
+	<select id="selectOne" resultType="GoodsInfo" parameterType="String">
+		<![CDATA[
+			select * from goodsinfo where code=#{code}
+		]]>
+	</select>
+	
+	<insert id="insert" parameterType="GoodsInfo">
+		<![CDATA[
+			insert into goodsinfo(code, name, price, maker) values(#{code}, #{name}, #{price}, #{maker})
+		]]>
+	</insert>
+	
+	<delete id="delete" parameterType="String">
+		<![CDATA[
+			delete from goodsinfo where code=#{code}
+		]]>
+	</delete>
+	
+	<update id="update" parameterType="GoodsInfo">
+		<![CDATA[
+			update goodsinfo set name=#{name}, price=#{price}, maker=#{maker} where code=#{code}
+		]]>
+	</update>
+	<select id="getCount" resultType="int">
+		<![CDATA[
+			select count(*) as total from goodsinfo
+		]]>
+	</select>
+</mapper>
