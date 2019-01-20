@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="edu.autocar.tourguide.dao.TourGuideDao">
+	<insert id="insert" parameterType="tourGuide">
+		<![CDATA[
+			insert into tourguide(
+			tour_no,
+			tour_name,
+			city,
+			area,
+			content,
+			location,
+			home_page,
+			update_date) 
+			values(
+				tour_no_seq.nextval, 
+				#{tourName},
+				#{city},
+				#{area},
+				#{content},
+				#{location},
+				#{homePage},
+				sysdate)
+		]]>
+	</insert>
+	
+	<select id="selectList" resultType="TourGuide">
+		<![CDATA[
+			select * 
+			from tourguide
+			order by tour_no asc
+		]]>
+	</select>
+	
+	<select id="selectNo" resultType="TourGuide">
+		<![CDATA[
+			select * 
+			from tourguide 
+			where tour_no = #{tourNo}
+			order by tour_no asc
+		]]>
+	</select>
+	
+	<select id="selectName" resultType="TourGuide" parameterType="TourGuide">
+		<![CDATA[
+			select * from tourguide where tour_name like '%${tourName}%' order by tour_no asc
+		]]>
+	</select>
+	
+	<select id="getCity" resultType="String">
+		<![CDATA[
+			select distinct city from TOURGUIDE
+		]]>
+	</select>
+	
+	<select id="selectCity" resultType="TourGuide">
+		<![CDATA[
+			select * from tourguide where city=#{city} order by tour_no asc
+		]]>
+	</select>
+	
+	<update id="update" parameterType="TourGuide">
+		<![CDATA[
+			update tourguide 
+			set tour_name=#{tourName}, 
+				city=#{city}, 
+				area=#{area}, 
+				content=#{content},
+				location=#{location},
+				home_page=#{homePage} 
+			where tour_no = #{tourNo}
+		]]>
+	</update>
+	
+	<delete id="delete">
+		<![CDATA[
+			delete from tourguide where tour_no=#{tourNo}
+		]]>
+	</delete>
+	
+	<select id="getCount" resultType="int">
+		<![CDATA[
+			select count(*) as count from tourguide
+		]]>
+	</select>
+	
+	<select id="getPage" parameterType="Map" resultType="TourGuide">
+		select tour_no, tour_name, city, area
+		from (
+			select row_number() over (order by tour_no) as seq, tour_no, tour_name, city, area from tourguide
+		)
+		where seq between #{start} and #{end}
+	</select>
+</mapper>

@@ -1,0 +1,9 @@
+edu.autocar.tourgide
+edu.autocar.tourguide
+edu.autocar.tourguide.command
+edu.autocar.tourguide.dao
+edu.autocar.tourguide.domain
+edu.autocar.tourguide.menu
+edu.autocar.tourguide.sec
+edu.autocar.tourguide.service
+edu.autocar.tourguide.util
